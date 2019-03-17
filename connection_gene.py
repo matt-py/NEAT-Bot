@@ -16,7 +16,7 @@ class ConnectionGene:
             self.weight += (random.gauss(0, 1)/50)
             self.weight = self.clip_value(self.weight, -1, 1)
 
-    def clone_gene(self, from_node, to_node):
+    def clone(self, from_node, to_node):
         clone = ConnectionGene(from_node, to_node, self.weight, self.innovation_num)
         clone.enabled = self.enabled
         return clone
@@ -24,6 +24,7 @@ class ConnectionGene:
     def clip_value(self, value, lower, upper):
         if value < lower:
             value = lower
-        elif value > higher:
-            value = higher
+        elif value > upper:
+            value = upper
         return value
+

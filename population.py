@@ -71,8 +71,8 @@ class Population:
 
         if temp_best.score >= self.best_score:
             self.gen_players.append(temp_best.clone())
-            print("old best: " + self.best_score)
-            print("new best: " + temp_best.score)
+            print("old best: " + str(self.best_score))
+            print("new best: " + str(temp_best.score))
             self.best_score = temp_best.score
             self.best_player = temp_best.clone()
 
@@ -89,9 +89,9 @@ class Population:
         self.kill_stale_species()
         self.kill_bad_species()
 
-        print(("generation: " + self.gen
-                " Num of mutations: " + len(self.innovation_history)
-                " species: " + len(self.species)
+        print(("generation: " + str(self.gen) +
+                " Num of mutations: " + str(len(self.innovation_history)) +
+                " species: " + str(len(self.species)) +
                 " <<<<<<<<<<<<<<<<<"))
         
         average_sum = self.get_avg_fitness_sum()
@@ -147,12 +147,13 @@ class Population:
 
     def kill_bad_species(self):
         average_sum = self.get_avg_fitness_sum()
-        i = 1
-        while i < len(self.species):
-            if (self.species[i].average_fitness / average_sum * len(self.players)) < 1:
-                del self.species[i]
-                i -= 1
-            i += 1
+        if average_sum != 0:
+            i = 1
+            while i < len(self.species):
+                if (self.species[i].average_fitness / average_sum * len(self.players)) < 1:
+                    del self.species[i]
+                    i -= 1
+                i += 1
     
     def get_avg_fitness_sum(self):
         average_sum = 0
@@ -162,9 +163,10 @@ class Population:
 
     def cull_species(self):
         for s in self.species:
-            s.cull()
-            s.fitness_sharing()
-            s.set_average()
+            if len(s.players) != 0:
+                s.cull()
+                s.fitness_sharing()
+                s.set_average()
 
     def mass_extinction(self):
         i = 5

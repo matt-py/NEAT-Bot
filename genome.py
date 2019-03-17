@@ -8,7 +8,7 @@ class Genome:
 
     next_connection_num = 1000
 
-    def __init__(self, inputs, outputs, crossover):
+    def __init__(self, inputs, outputs, crossover=False):
         self.genes = []
         self.nodes = []
         self.inputs = inputs
@@ -69,9 +69,7 @@ class Genome:
         self.nodes[self.bias_node].output_value = 1
         for network_node in self.network:
             network_node.engage()
-        outs = []
-        for i in range(self.outputs):
-            outs[i] = self.nodes[self.inputs + i].output_value
+        outs = [self.nodes[self.inputs + i].output_value for i in range(self.outputs)]
         for node in self.nodes:
             node.input_sum = 0
         return outs
@@ -167,9 +165,7 @@ class Genome:
 
     def fully_connected(self):
         max_connections = 0
-        nodes_in_layers = []
-        for i in range(self.layers):
-            nodes_in_layers[i] = 0
+        nodes_in_layers = [0] * self.layers
         
         for i in range(len(self.nodes)):
             nodes_in_layers[self.nodes[i].layer] += 1
@@ -188,14 +184,14 @@ class Genome:
         if len(self.genes) == 0:
             self.add_connection(innovation_history)
         
-        if random.random() < 0.8:
+        if random.random() < 0.9:
             for gene in self.genes:
                 gene.mutate_weight()
         
-        if random.random() < 0.05:
+        if random.random() < 0.9:
             self.add_connection(innovation_history)
         
-        if random.random() < 0.01:
+        if random.random() < 0.5:
             self.add_node(innovation_history)
 
     def crossover(self, parent2):
@@ -242,20 +238,20 @@ class Genome:
         return -1
 
     def print_genome(self):
-        print("Print genome layers: " + self.layers)
-        print("bias node: " + self.bias_node)
+        print("Print genome layers: " + str(self.layers))
+        print("bias node: " + str(self.bias_node))
         print("self.nodes")
         for node in self.nodes:
-            print(node.num + ",")
+            print(str(node.num) + ",")
         print("Genes")
         for gene in self.genes:
-            print(("gene " + gene.innovation_num
-                    " From node " + gene.from_node.num
-                    " To node " + gene.to_node.num
-                    " is enabled " + gene.enabled
-                    " from layer " + gene.from_node.layer
-                    " to layer " + gene.to_node.layer
-                    " weight: " + gene.weight))
+            print(("gene " + str(gene.innovation_num) +
+                    " From node " + str(gene.from_node.num) +
+                    " To node " + str(gene.to_node.num) +
+                    " is enabled " + str(gene.enabled) +
+                    " from layer " + str(gene.from_node.layer) +
+                    " to layer " + str(gene.to_node.layer) +
+                    " weight: " + str(gene.weight)))
         print()
 
     def clone(self):

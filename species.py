@@ -105,7 +105,7 @@ class Species:
 
     def cull(self):
         if len(self.players) > 2:
-            i = len(self.players)/2
+            i = round(len(self.players)/2)
             while i < len(self.players):
                 del self.players[i]
 
