@@ -188,10 +188,10 @@ class Genome:
             for gene in self.genes:
                 gene.mutate_weight()
         
-        if random.random() < 0.9:
+        if random.random() < 0.8:
             self.add_connection(innovation_history)
         
-        if random.random() < 0.5:
+        if random.random() < 0.9:
             self.add_node(innovation_history)
 
     def crossover(self, parent2):

@@ -43,7 +43,7 @@ class NEATBot(BaseAgent):
                         packet.game_ball.physics.location.y) - Vector2(packet.game_cars[self.index].physics.location.x,
                                                                         packet.game_cars[self.index].physics.location.y)
         car_to_ball_dist = car_to_ball_vec.mag()
-        reward += ((5000/car_to_ball_dist) - (5000/self.bot_dist_to_ball))
+        reward += ((50000/car_to_ball_dist) - (50000/self.bot_dist_to_ball))
         self.bot_dist_to_ball = car_to_ball_dist
             
         self.reset_controller_state()
@@ -58,18 +58,6 @@ class NEATBot(BaseAgent):
         self.set_controller_state(choice)
 
         self.render_nn()
-
-        # self.renderer.begin_rendering()
-        # text_to_render = ("INFO \n"
-        #                     "gen: " + str(self.population.gen) + "\n"
-        #                     "player: " + str(self.population.current_player_index+1) + "/"
-        #                     "" + str(len(self.population.players)) + "\n"
-        #                     "best score: " + str(self.population.current_player.score) + "\n"
-        #                     "action: " + str(self.population.current_player.decision) + "\n"
-        #                     )
-        # self.renderer.draw_string_2d(5, 5, 1, 1, text_to_render, self.renderer.white())
-
-        # self.renderer.end_rendering()
 
         self.stop_bot_climbing_wall(packet)
 
