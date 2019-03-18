@@ -11,3 +11,4 @@ TODO
 - [ ] Improve rewards system
 - [ ] Improve fitness function
 - [ ] Add mechanics like double jump, dodge, half-flip
+- [ ] Add and test parallelism/running multiple bots at once
