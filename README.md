@@ -17,7 +17,7 @@ A population of genomes is created, with each genome containing a network of nod
 ### TODO
 
 - [x] Add all files for a working implementation of NEAT
-- [x] Define simple inputs. Simple outputs are throttle and steer
+- [x] Define simple inputs. Define simple outputs of throttle and steer
 - [x] Adjustments to get the bot learning correctly
 
 - [ ] Add saving neural networks using pickle
