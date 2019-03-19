@@ -26,7 +26,6 @@ class NEATBot(BaseAgent):
         self.started = False
 
 
-
     def get_output(self, packet: GameTickPacket) -> SimpleControllerState:
         if not self.started:
             self.bot_score = packet.game_cars[self.index].score_info.score
@@ -77,19 +76,6 @@ class NEATBot(BaseAgent):
     def set_controller_state(self, choice):
         self.controller_state.throttle = choice[0]
         self.controller_state.steer = (choice[1]-0.5)*2
-        # if choice == 0:
-        #     self.controller_state.throttle = 1
-        #     self.action_text = "throttle"
-        # elif choice == 1:
-        #     self.controller_state.throttle = 1
-        #     self.controller_state.steer = 1
-        #     self.action_text = "right"
-        # elif choice == 2:
-        #     self.controller_state.throttle = 1
-        #     self.controller_state.steer = -1
-        #     self.action_text = "left"
-        # else:
-        #     print("UNEXPECTED: unknown choice")
 
     def get_inputs(self, packet):
         ball = Vector2(packet.game_ball.physics.location.x,
@@ -103,20 +89,6 @@ class NEATBot(BaseAgent):
         bot_dir = get_car_facing_vector(my_car)
         car_to_ball = ball - bot
         angle_to_ball = bot_dir.correction_to(car_to_ball)
-
-        # bot.x = self.normalise_input(bot.x, -4096, 4096)
-        # bot.y = self.normalise_input(bot.y, -6020, 6020)
-        # bot_speed = self.normalise_input(bot_speed, 0, 1500)
-        # ball.x = self.normalise_input(ball.x, -4096, 4096)
-        # ball.y = self.normalise_input(ball.y, -6020, 6020)
-        # ball_speed = self.normalise_input(ball_speed, 0, 2850)
-        # bot.x = bot.x/100
-        # bot.y = bot.y/100
-        # ball.x = ball.x/100
-        # ball.y = ball.y/100
-        # bot_speed = bot_speed/50
-        # ball_speed = ball_speed/50
-        # angle_to_ball = self.normalise_input(angle_to_ball, (-2 * math.pi), (2 * math.pi))
         input_array = [bot.x, bot.y, bot_speed, ball.x, ball.y, ballz, ball_speed, angle_to_ball]  # bot_dir
         return input_array
 
@@ -124,12 +96,7 @@ class NEATBot(BaseAgent):
         return (input_i - min_i)/(max_i - min_i)
 
     def render_nn(self):
-        # self.population.current_player.brain.print_genome()
-        # print()
         self.renderer.begin_rendering()
-        # nodes = self.population.current_player.brain.nodes
-        # for node in nodes:
-        #     self.renderer.draw_string_2d(5+(50*node.layer), (node.num*25)-(node.layer*175), 2, 2, str(node.num), self.renderer.white())
         p = self.population
         text_to_render = ("INFO \n"
                             "gen: " + str(p.gen) + "\n"
@@ -151,15 +118,9 @@ class NEATBot(BaseAgent):
         if car.rotation.pitch > 0.06 or car.location.z > 20:
             if self.controller_state.steer < 0.01:
                 self.controller_state.steer = -1
-        # self.controller_state.jump = 1
-        # pitch = packet.game_cars[self.index].physics.rotation.pitch
-        # roll = packet.game_cars[self.index].physics.rotation.roll
-        # self.controller_state
         
 
 
-
-        
 
 class Vector2:
     def __init__(self, x=0, y=0):

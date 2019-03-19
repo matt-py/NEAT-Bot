@@ -1,4 +1,5 @@
 import math
+import pickle
 from player import Player
 from species import Species
 
@@ -70,11 +71,17 @@ class Population:
         temp_best.gen = self.gen
 
         if temp_best.score >= self.best_score:
+            self.save_population()
             self.gen_players.append(temp_best.clone())
             print("old best: " + str(self.best_score))
             print("new best: " + str(temp_best.score))
             self.best_score = temp_best.score
             self.best_player = temp_best.clone()
+
+    def save_population(self):
+        filepath = 'best_population.pkl'
+        with open(filepath, 'wb') as f:
+            pickle.dump(self, filepath)
 
     def natural_selection(self):
         previous_best = self.players[0]
