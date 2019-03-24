@@ -81,7 +81,7 @@ class Population:
     def save_population(self):
         filepath = 'best_population.pkl'
         with open(filepath, 'wb') as f:
-            pickle.dump(self, filepath)
+            pickle.dump(self, f)
 
     def natural_selection(self):
         previous_best = self.players[0]
