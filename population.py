@@ -4,12 +4,8 @@ from player import Player
 from species import Species
 
 class Population:
-
-    super_speed = 1
-
     def __init__(self, size):
         self.players = []
-        self.best_player = None
         self.current_player = None
         self.current_player_index = 0
         self.best_score = 0
@@ -20,23 +16,13 @@ class Population:
         self.species = []
 
         self.mass_extinction_event = False
-        self.new_stage = False
-
-        self.gens_since_new_world = 0
 
         for _ in range(size):
             self.players.append(Player())
-            # self.players[len(self.players)-1].brain.fully_connect(self.innovation_history)
             self.players[len(self.players)-1].brain.mutate(self.innovation_history)
             self.players[len(self.players)-1].brain.generate_network()
         
         self.get_next_player(True)
-
-    def get_current_best(self):
-        for player in self.players:
-            if not player.dead:
-                return player
-        return self.players[0]
 
     def get_next_player(self, reset=False):
         if reset:
@@ -76,7 +62,6 @@ class Population:
             print("old best: " + str(self.best_score))
             print("new best: " + str(temp_best.score))
             self.best_score = temp_best.score
-            self.best_player = temp_best.clone()
 
     def save_population(self):
         filepath = 'best_population.pkl'

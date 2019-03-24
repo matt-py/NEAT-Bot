@@ -92,9 +92,6 @@ class NEATBot(BaseAgent):
         input_array = [bot.x, bot.y, bot_speed, ball.x, ball.y, ballz, ball_speed, angle_to_ball]  # bot_dir
         return input_array
 
-    def normalise_input(self, input_i, min_i, max_i):
-        return (input_i - min_i)/(max_i - min_i)
-
     def render_nn(self):
         self.renderer.begin_rendering()
         p = self.population

@@ -36,21 +36,6 @@ class Genome:
         self.next_node += 1
         self.nodes[self.bias_node].layer = 0
 
-    def fully_connect(self, innovation_history):
-        for i in range(self.inputs):
-            for j in range(self.outputs):
-                connection_innovation_num = self.get_innovation_num(innovation_history,
-                    self.nodes[i], self.nodes[len(self.nodes)-j-2])
-                self.genes.append(ConnectionGene(self.nodes[i], self.nodes[len(self.nodes)-j-2],
-                    random.uniform(-1, 1), connection_innovation_num))
-
-        connection_innovation_num = self.get_innovation_num(innovation_history,
-            self.nodes[self.bias_node], self.nodes[len(self.nodes)-2])
-        self.genes.append(ConnectionGene(self.nodes[self.bias_node], self.nodes[len(self.nodes)-2],
-            random.uniform(-1, 1), connection_innovation_num))
-
-        self.connect_nodes()
-
     def get_node(self, node_num):
         for i in range(len(self.nodes)):
             if self.nodes[i].num == node_num:
