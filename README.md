@@ -20,7 +20,7 @@ A population of genomes is created, with each genome containing a network of nod
 - [x] Define simple inputs. Define simple outputs of throttle and steer
 - [x] Adjustments to get the bot learning correctly
 
-- [ ] Add saving neural networks using pickle
+- [x] Add saving neural networks using pickle
 - [ ] Add loading neural networks using pickle
 - [ ] Try adding parallelism/running multiple bots at once (may be possible with subprocess communication)
 - [ ] Modify inputs to be relative to the bot
